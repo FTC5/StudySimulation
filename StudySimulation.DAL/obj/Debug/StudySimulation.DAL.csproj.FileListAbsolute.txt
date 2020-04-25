@@ -18,3 +18,9 @@ D:\C#\source\repos\StudySimulationV3.1\StudySimulation.DAL\obj\Debug\StudySimula
 D:\C#\source\repos\StudySimulationV3.1\StudySimulation.DAL\obj\Debug\StudySimulation.DAL.csproj.CoreCompileInputs.cache
 D:\C#\source\repos\StudySimulationV3.1\StudySimulation.DAL\obj\Debug\StudySimulation.DAL.dll
 D:\C#\source\repos\StudySimulationV3.1\StudySimulation.DAL\obj\Debug\StudySimulation.DAL.pdb
+D:\C#\source\repos\StudySimulation\StudySimulation.DAL\bin\Debug\StudySimulation.DAL.dll
+D:\C#\source\repos\StudySimulation\StudySimulation.DAL\bin\Debug\StudySimulation.DAL.pdb
+D:\C#\source\repos\StudySimulation\StudySimulation.DAL\obj\Debug\StudySimulation.DAL.csprojAssemblyReference.cache
+D:\C#\source\repos\StudySimulation\StudySimulation.DAL\obj\Debug\StudySimulation.DAL.csproj.CoreCompileInputs.cache
+D:\C#\source\repos\StudySimulation\StudySimulation.DAL\obj\Debug\StudySimulation.DAL.dll
+D:\C#\source\repos\StudySimulation\StudySimulation.DAL\obj\Debug\StudySimulation.DAL.pdb

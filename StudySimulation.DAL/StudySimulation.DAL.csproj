@@ -43,9 +43,6 @@
   <ItemGroup>
     <Compile Include="Abstract\Equipment.cs" />
     <Compile Include="Equipments\TapeRecorder.cs" />
-    <Compile Include="Events\ImportantSubjectEventArgs.cs" />
-    <Compile Include="Events\StudentEventArgs.cs" />
-    <Compile Include="Events\SubjectEventArgs.cs" />
     <Compile Include="Interface\ISubActivities.cs" />
     <Compile Include="Rooms\Room.cs" />
     <Compile Include="Equipments\Computer.cs" />

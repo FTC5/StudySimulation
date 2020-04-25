@@ -38,3 +38,15 @@ D:\C#\source\repos\StudySimulationV3.1\StudySimulation\obj\Debug\StudySimulation
 D:\C#\source\repos\StudySimulationV3.1\StudySimulation\obj\Debug\StudySimulation.PL.csproj.CopyComplete
 D:\C#\source\repos\StudySimulationV3.1\StudySimulation\obj\Debug\StudySimulation.exe
 D:\C#\source\repos\StudySimulationV3.1\StudySimulation\obj\Debug\StudySimulation.pdb
+D:\C#\source\repos\StudySimulation\StudySimulation\bin\Debug\StudySimulation.exe.config
+D:\C#\source\repos\StudySimulation\StudySimulation\bin\Debug\StudySimulation.exe
+D:\C#\source\repos\StudySimulation\StudySimulation\bin\Debug\StudySimulation.pdb
+D:\C#\source\repos\StudySimulation\StudySimulation\bin\Debug\StudySimulation.BLL.dll
+D:\C#\source\repos\StudySimulation\StudySimulation\bin\Debug\StudySimulation.DAL.dll
+D:\C#\source\repos\StudySimulation\StudySimulation\bin\Debug\StudySimulation.BLL.pdb
+D:\C#\source\repos\StudySimulation\StudySimulation\bin\Debug\StudySimulation.DAL.pdb
+D:\C#\source\repos\StudySimulation\StudySimulation\obj\Debug\StudySimulation.PL.csprojAssemblyReference.cache
+D:\C#\source\repos\StudySimulation\StudySimulation\obj\Debug\StudySimulation.PL.csproj.CoreCompileInputs.cache
+D:\C#\source\repos\StudySimulation\StudySimulation\obj\Debug\StudySimulation.PL.csproj.CopyComplete
+D:\C#\source\repos\StudySimulation\StudySimulation\obj\Debug\StudySimulation.exe
+D:\C#\source\repos\StudySimulation\StudySimulation\obj\Debug\StudySimulation.pdb
