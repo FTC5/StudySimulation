@@ -24,7 +24,7 @@ namespace StudySimulation.BLL
 
         
 
-        public void StudentInfoSwitch(GetMarkHandler getMarkHandler)
+        public void StudentInfoSwitch(EvaluationHandler getMarkHandler)
         {
             if (studentInfo)
             {
@@ -36,13 +36,13 @@ namespace StudySimulation.BLL
             }
             studentInfo = !studentInfo;
         }
-        private void OnStudentInfo(GetMarkHandler getMarkHandler)
+        private void OnStudentInfo(EvaluationHandler getMarkHandler)
         {
-            groupRating.GetMark += getMarkHandler;
+            groupRating.GetEvaluation += getMarkHandler;
         }
-        private void OffStudentInfo(GetMarkHandler getMarkHandler)
+        private void OffStudentInfo(EvaluationHandler getMarkHandler)
         {
-            groupRating.GetMark -= getMarkHandler;
+            groupRating.GetEvaluation -= getMarkHandler;
         }
         public void EducationalMesSwitch(MessageHandler messageHandler)
         {

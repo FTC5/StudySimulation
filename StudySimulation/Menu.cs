@@ -299,7 +299,6 @@ namespace StudySimulation
         {
             int max = 0;
             string text = "";
-            string buff = "";
             foreach (EQUIPMENT item in Enum.GetValues(typeof(EQUIPMENT)))
             {
                 text += item.ToString().ToLower() + " : " + (int)item + "\n";
