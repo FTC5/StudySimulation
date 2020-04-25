@@ -1,20 +1,31 @@
 ﻿using StudySimulation.DAL;
 using StudySimulation.DAL.Abstract;
 using StudySimulation.DAL.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace StudySimulation.BLL.Abstract
 {
+    public class MessageEventArgs : EventArgs
+    {
+        public string text;
+    }
+    public class SuccessFactorEventArgs : EventArgs
+    {
+        public string text;
+        public int successFactor;
+    }
+    public delegate void SuccessFactorHandler(object source, SuccessFactorEventArgs arg);
+    public delegate void MessageHandler(object source, MessageEventArgs arg);
     public abstract class Subject
     {
-        public delegate void SuccessFactorHandler(string message);
         public event SuccessFactorHandler Factor;
-        public delegate void MessageHandler(string message);
         public event MessageHandler Message;
         public GroupRating groupRating;
         protected string name;
-        protected int successFactor=0;
+        protected int successFactor = 0;
+
         public Subject(GroupRating groupRating)
         {
             this.groupRating = groupRating;
@@ -23,28 +34,32 @@ namespace StudySimulation.BLL.Abstract
 
         public abstract int Lab(Group group, Equipment equipment, Room room, ISubActivities subActivities);
         public abstract int Credit(Group group);
-        protected void CallFactorEvent(string message,int successFactor)
+        protected void CallFactorEvent(object source, SuccessFactorEventArgs arg)
         {
-            Factor?.Invoke(message+successFactor);
+            Factor?.Invoke(source, arg);
         }
-        protected void CallMessageEvent(string message)
+        protected void CallMessageEvent(object source, MessageEventArgs arg)
         {
-            Message?.Invoke(message);
+            Message?.Invoke(source, arg);
         }
         protected virtual int CheckEquipment(Equipment equipment)
         {
-            
+            SuccessFactorEventArgs factor = new SuccessFactorEventArgs();
             if (equipment != null)
             {
                 if (equipment.Name == "Computer")
                 {
                     successFactor += 3;
-                    Factor?.Invoke($"Students use computer. Student success factor: {successFactor}");
+                    factor.text = "Students use computer. Student success factor: ";
+                    factor.successFactor = successFactor;
+                    Factor?.Invoke(this,factor);
                 }
                 if (equipment.Name == "Tape recorder")
                 {
                     successFactor += -1;
-                    Factor?.Invoke($"Teacher use tape recorder. Student success factor: {successFactor}");
+                    factor.text = "Teacher use tape recorder. Student success factor: ";
+                    factor.successFactor = successFactor;
+                    Factor?.Invoke(this, factor);
                 }
             }
             return successFactor;
@@ -65,11 +80,13 @@ namespace StudySimulation.BLL.Abstract
         }
         public virtual int Examination(Group group,Equipment equipment)
         {
-            
+            MessageEventArgs message = new MessageEventArgs();
             successFactor = 0;
-            Message?.Invoke("Examination start (-_-): ");
+            message.text = "Examination start (-_-): ";
+            Message?.Invoke(this,message);
             successFactor += CheckEquipment(equipment);
-            Message?.Invoke("Students write the exam");
+            message.text = "Students write the exam";
+            Message?.Invoke(this, message);
             foreach (Student student in group.Students)
             {
                 if(neglectCheack(student)==true)
@@ -85,10 +102,13 @@ namespace StudySimulation.BLL.Abstract
         }
         public virtual int Lectures(List<Group> groups, Equipment equipment)
         {
+            MessageEventArgs message = new MessageEventArgs();
             successFactor = 0;
-            Message?.Invoke("Lectures start : ");
+            message.text = "Lectures start : ";
+            Message?.Invoke(this,message);
             successFactor += CheckEquipment(equipment);
-            Message?.Invoke("Students study");
+            message.text = "Students study";
+            Message?.Invoke(this, message);
             foreach (Group group in groups)
             {
                 groupRating.SetRandGroupGrade(group, name);
@@ -97,10 +117,13 @@ namespace StudySimulation.BLL.Abstract
         }
         public virtual int ModulControlWork(Group group, Equipment equipment)
         {
+            MessageEventArgs message = new MessageEventArgs();
             successFactor = 0;
-            Message?.Invoke("Modul control work start (-_-): ");
+            message.text = "Modul control work start (-_-): ";
+            Message?.Invoke(this, message);
             successFactor += CheckEquipment(equipment);
-            Message?.Invoke("Students write the modul control work");
+            message.text = "Students write the modul control work";
+            Message?.Invoke(this, message);
             foreach (Student student in group.Students)
             {
                 if (neglectCheack(student) == true)
@@ -116,23 +139,30 @@ namespace StudySimulation.BLL.Abstract
         }
         public virtual int Practice(Group group, Equipment equipment, ISubActivities subActivities)
         {
+            MessageEventArgs message = new MessageEventArgs();
             successFactor = 0;
-            Message?.Invoke("Practice start : ");
+            message.text = "Practice start : ";
+            Message?.Invoke(this, message);
             successFactor += CheckEquipment(equipment);
             if (subActivities != null)
             {
-                successFactor += 1;
-                Factor?.Invoke(subActivities.Action()+ $".Student success factor: {successFactor}");
+                SuccessFactorEventArgs factor = new SuccessFactorEventArgs();
+                successFactor += 1;      
+                factor.text = subActivities.Action() + ".Student success factor: ";
+                factor.successFactor = successFactor;
+                Factor?.Invoke(this, factor);
             }
-            Message?.Invoke("Students study");
+            message.text = "Students study";
+            Message?.Invoke(this, message);
             groupRating.SetGroupGrades(group, name);
             return successFactor;
         }
         public virtual int TermPaper(Group group, Equipment equipment)
         {
+            MessageEventArgs message = new MessageEventArgs();
             successFactor = 0;
-            Message?.Invoke("TermPaper start : ");
-            Message?.Invoke("Students defend coursework");
+            message.text = "TermPaper start: \nStudents defend coursework";
+            Message?.Invoke(this, message);
             successFactor += CheckEquipment(equipment);
             groupRating.SetGroupGrades(group,name);
             return successFactor;

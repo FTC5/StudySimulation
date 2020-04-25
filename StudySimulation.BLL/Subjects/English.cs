@@ -18,27 +18,34 @@ namespace StudySimulation.BLL.Subjects
 
         public override int Credit(Group group)
         {
-            CallMessageEvent("Ooo Students have credit: ");
-            CallMessageEvent("students receive grades");
+            MessageEventArgs message = new MessageEventArgs();
+            message.text = "Ooo Students have credit: /nstudents receive grades";
+            CallMessageEvent(this, message);
             groupRating.SetAverageMark(group, name);
             return 0;
         }
 
         public override int Lab(Group group, Equipment equipment, Room room, ISubActivities subActivities)
         {
-            CallMessageEvent(name + " dont have a lab!");
+            MessageEventArgs message = new MessageEventArgs();
+            message.text = name + " dont have a lab!";
+            CallMessageEvent(this, message);
             return 0;
         }
 
         public override int Lectures(List<Group> groups, Equipment equipment)
         {
-            CallMessageEvent(name + " dont have a lectures!");
+            MessageEventArgs message = new MessageEventArgs();
+            message.text = name + " dont have a lectures!";
+            CallMessageEvent(this, message);
             return 0;
         }
 
         public override int TermPaper(Group group, Equipment equipment)
         {
-            CallMessageEvent(name + " dont have a term paper!");
+            MessageEventArgs message = new MessageEventArgs();
+            message.text = name + " dont have a term paper!";
+            CallMessageEvent(this, message);
             return 0;
         }
     }

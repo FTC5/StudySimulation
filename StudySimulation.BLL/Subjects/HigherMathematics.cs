@@ -15,15 +15,19 @@ namespace StudySimulation.BLL.Subjects
         public HigherMathematics(GroupRating groupRating) : base(groupRating)
         {
         }
-
         public override int Credit(Group group)
         {
-            CallMessageEvent(name + " dont have a credit!");
+            MessageEventArgs message = new MessageEventArgs();
+            message.text = name + " dont have a credit!";
+            CallMessageEvent(this, message);
             return 0;
         }
+
         public override int Lab(Group group, Equipment equipment, Room room, ISubActivities subActivities)
         {
-            CallMessageEvent(name + " dont have a lab!");
+            MessageEventArgs message = new MessageEventArgs();
+            message.text = name + " dont have a lab!";
+            CallMessageEvent(this, message);
             return 0;
         }
     }

@@ -19,34 +19,41 @@ namespace StudySimulation.BLL.Subjects
 
         public override int Credit(Group group)
         {
-            CallMessageEvent(name + " dont have a credit!");
+            MessageEventArgs message = new MessageEventArgs();
+            message.text = name + " dont have a credit!";
+            CallMessageEvent(this, message);
             return 0;
         }
 
         public override int Lab(Group group, Equipment equipment, Room room, ISubActivities subActivities)
         {
-            successFactor = 0;
-            CallMessageEvent("Lab start : ");
-            successFactor = 0;
+            MessageEventArgs message = new MessageEventArgs();
+            message.text = "Lab start : \n";
 
             if (room.Name != "Laboratory")
             {
-                CallMessageEvent("Students cannot study. They dont have laboratory");
+                message.text += "Students cannot study. They dont have laboratory";
+                CallMessageEvent(this, message);
                 return 0;
             }
             else if (subActivities == null)
             {
-                CallMessageEvent("Students nothing to do");
+                message.text += "Students nothing to do";
+                CallMessageEvent(this, message);
                 return 0;
             }
             if (subActivities.ToString() != "Perform experiment")
             {
-                CallFactorEvent(subActivities.ToString() + "Student success factor:", successFactor);
+                SuccessFactorEventArgs factor = new SuccessFactorEventArgs();
                 successFactor += -3;
+                factor.text = subActivities.Action() + ".Student success factor: ";
+                factor.successFactor = successFactor;
+                CallFactorEvent(this, factor);
             }
-            CallMessageEvent(subActivities.Action());
+            message.text += subActivities.Action() + "\n";
             successFactor += CheckEquipment(equipment);
-            CallMessageEvent("Students study");
+            message.text += "Students study";
+            CallMessageEvent(this, message);
             return successFactor;
         }
     }
