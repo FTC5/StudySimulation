@@ -1,4 +1,5 @@
 ﻿using StudySimulation.BLL.Abstract;
+using StudySimulation.BLL.Interface;
 using StudySimulation.DAL;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace StudySimulation.BLL
 {
-    public class InfoService
+    public class InfoService:IInfoService
     {
-        University university;
+        IUniversity university;
 
-        public InfoService(University university)
+        public InfoService(IUniversity university)
         {
             this.university = university;
         }

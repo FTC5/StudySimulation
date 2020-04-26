@@ -43,7 +43,11 @@
   <ItemGroup>
     <Compile Include="Abstract\Subject.cs" />
     <Compile Include="Abstract\GroupRating.cs" />
+    <Compile Include="EventManager.cs" />
+    <Compile Include="IEventService.cs" />
     <Compile Include="InfoService.cs" />
+    <Compile Include="IObserver.cs" />
+    <Compile Include="ISubscribeSwitch.cs" />
     <Compile Include="PersoneDTO.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

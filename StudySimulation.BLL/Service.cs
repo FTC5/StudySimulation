@@ -1,4 +1,5 @@
 ﻿using StudySimulation.BLL.Abstract;
+using StudySimulation.BLL.Interface;
 using StudySimulation.BLL.Subjects;
 using StudySimulation.DAL;
 using StudySimulation.DAL.Abstract;
@@ -34,13 +35,13 @@ namespace StudySimulation.BLL
         WRITETEXT,
         NOTHING
     }
-    public class Service
+    public class Service : IService
     {
         Random random = new Random();
         List<Subject> subjects = new List<Subject>();//
         Dictionary<Subject, List<Teacher>> staff;
         List<Group> groups = new List<Group>();
-        public Service(University university)
+        public Service(IUniversity university)
         {
             subjects = university.Subjects;
             staff = university.Staff;

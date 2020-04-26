@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace StudySimulation.BLL
 {
-    public class University
+    public class University : IUniversity
     {
         List<Subject> subjects = new List<Subject>();//
         Dictionary<Subject, List<Teacher>> staff;
         List<Group> groups = new List<Group>();
         GroupRating groupRating;
-        internal List<Subject> Subjects { get => subjects;}
-        internal List<Group> Groups { get => groups; set => groups = value; }
-        internal Dictionary<Subject, List<Teacher>> Staff { get => staff; set => staff = value; }
+        public List<Subject> Subjects { get => subjects;}
+        public List<Group> Groups { get => groups; set => groups = value; }
+        public Dictionary<Subject, List<Teacher>> Staff { get => staff; set => staff = value; }
         public GroupRating GroupRating { get => groupRating;}
 
         public University()
