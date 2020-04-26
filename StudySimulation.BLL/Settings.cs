@@ -4,99 +4,92 @@ using static StudySimulation.BLL.Abstract.Subject;
 
 namespace StudySimulation.BLL
 {
-    public class Settings
+    public class Settings : ISubscribeSwitch
     {
-        GroupRating groupRating;
-        University university;
+        IObserver observer;
+        IEventService eventService;
         bool studentInfo = false;
         bool educationalMes = false;
         bool educationalFactor = false;
 
-        public Settings(University university)
+        public Settings(IObserver observer, IEventService eventService)
         {
-            this.university = university;
-            groupRating = university.GroupRating;
+            this.observer = observer;
+            this.eventService = eventService;
+            CheakAllSubscribe(observer, eventService);
         }
 
         public bool StudentInfo { get => studentInfo;}
         public bool EducationalMes { get => educationalMes;}
         public bool EducationalFactor { get => educationalFactor;}
 
-        
-
-        public void StudentInfoSwitch(EvaluationHandler getMarkHandler)
+        public void StudentInfoSwitch()
         {
             if (studentInfo)
             {
-                OffStudentInfo(getMarkHandler);
+                eventService.UnSubscribeToGetPoints(observer);
             }
             else
             {
-                OnStudentInfo(getMarkHandler);
+                eventService.SubscribeToGetPoints(observer);
             }
             studentInfo = !studentInfo;
         }
-        private void OnStudentInfo(EvaluationHandler getMarkHandler)
+
+        public void EducationalMesSwitch()
         {
-            groupRating.GetEvaluation += getMarkHandler;
-        }
-        private void OffStudentInfo(EvaluationHandler getMarkHandler)
-        {
-            groupRating.GetEvaluation -= getMarkHandler;
-        }
-        public void EducationalMesSwitch(MessageHandler messageHandler)
-        {
-            if (educationalMes)
+            if (EducationalMes)
             {
-                OffEducationalMes(messageHandler);
+                eventService.UnSubscribeToMessage(observer);
             }
             else
             {
-                OnEducationalMes(messageHandler);
+                eventService.SubscribeToMessage(observer);
             }
             educationalMes = !educationalMes;
         }
-        private void OnEducationalMes(MessageHandler messageHandler)
+
+        public void EducationalFactorInfoSwitch()
         {
-            foreach (Subject item in university.Subjects)
+            if (EducationalFactor)
             {
-                item.Message += messageHandler;
-            }
-        }
-        private void OffEducationalMes(MessageHandler messageHandler)
-        {
-            foreach (Subject item in university.Subjects)
-            {
-                item.Message -= messageHandler;
-            }
-        }
-        public void EducationalFactorInfoSwitch(SuccessFactorHandler factorHandler)
-        {
-            if (educationalFactor)
-            {
-                OffEducationalFactorInfo(factorHandler);
-               
+                eventService.UnSubscribeToSuccessFactor(observer);
             }
             else
             {
-                OnEducationalFactorInfo(factorHandler);
+                eventService.SubscribeToSuccessFactor(observer);
             }
             educationalFactor = !educationalFactor;
+
         }
-        
-        
-        private void OnEducationalFactorInfo(SuccessFactorHandler factorHandler)
+        private void CheakAllSubscribe(IObserver observer, IEventService eventService)
         {
-            foreach (Subject item in university.Subjects)
+            studentInfo = eventService.SubscribeToGetPoints(observer);
+            educationalMes = eventService.SubscribeToMessage(observer);
+            educationalFactor = eventService.SubscribeToSuccessFactor(observer);
+            if (studentInfo)
             {
-                item.Factor += factorHandler;
+                StudentInfoSwitch();
             }
-        }
-        private void OffEducationalFactorInfo(SuccessFactorHandler factorHandler)
-        {
-            foreach (Subject item in university.Subjects)
+            else
             {
-                item.Factor -= factorHandler;
+                studentInfo = !studentInfo;
+            }
+            if (educationalMes)
+            {
+                EducationalMesSwitch();
+            }
+            else
+            {
+                educationalMes = !educationalMes;
+            }
+            if (educationalFactor)
+            {
+                EducationalFactorInfoSwitch();
+            }
+            else
+            {
+                educationalFactor = !educationalFactor;
             }
         }
     }
