@@ -43,44 +43,59 @@ namespace StudySimulation.BLL
         }
         public bool SubscribeToGetPoints(IObserver observer)
         {
-            groupRating.GetEvaluation += (source, arg) => observer.Update(arg.text);
-            return Subscribe(key[0],observer);//key[0]->getPoints
+           
+            if (Subscribe(key[0], observer))//key[0]->getPoints
+            {
+                groupRating.GetEvaluation += observer.Update;
+                return true;
+            }
+            return false;
+
         }
         public void UnSubscribeToGetPoints(IObserver observer)
         {
 
-            groupRating.GetEvaluation -= (source, arg) => observer.Update(arg.text);
+            groupRating.GetEvaluation -= observer.Update;
             UnSubscribe(key[0], observer);//key[0]->getPoints
         }
         public bool SubscribeToMessage(IObserver observer)
         {
-            foreach (Subject item in subjects)
+            if (Subscribe(key[1], observer))//key[1]->message
             {
-                item.Message+= (source, arg) => observer.Update(arg.text);
+                foreach (Subject item in subjects)
+                {
+                    item.Message += observer.Update;
+                }
+                return true;
             }
-            return Subscribe(key[1], observer);//key[1]->message
+            return false;
         }
         public void UnSubscribeToMessage(IObserver observer)
         {
             foreach (Subject item in subjects)
             {
-                item.Message -= (source, arg) => observer.Update(arg.text);
+                item.Message -= observer.Update;
             }
             UnSubscribe(key[1], observer);//key[1]->message
         }
         public bool SubscribeToSuccessFactor(IObserver observer)
         {
-            foreach (Subject item in subjects)
+            if (Subscribe(key[2], observer))//key[2]->successFactor/key[1]->message
             {
-                item.Factor += (source, arg) => observer.Update(arg.text,arg.successFactor);
+                foreach (Subject item in subjects)
+                {
+                    
+                    item.Factor += observer.Update; 
+                }
+                return true;
             }
-            return Subscribe(key[2], observer);//key[2]->successFactor
+            return false;
         }
         public void UnSubscribeToSuccessFactor(IObserver observer)
         {
             foreach (Subject item in subjects)
             {
-                item.Factor -= (source, arg) => observer.Update(arg.text, arg.successFactor);
+                item.Factor -= observer.Update;
             }
             UnSubscribe(key[2], observer);//key[2]->successFactor
         }

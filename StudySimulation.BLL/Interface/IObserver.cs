@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudySimulation.BLL.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace StudySimulation.BLL
 {
     public interface IObserver
     {
-        void Update(string text);
-        void Update(string text, int state);
+        void Update(object sender, MessageEventArgs eventArgs);
+        void Update(object sender, EvaluationEventArgs eventArgs);
+        void Update(object sender, SuccessFactorEventArgs eventArgs);
     }
 }

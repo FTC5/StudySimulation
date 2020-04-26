@@ -1,4 +1,5 @@
 ﻿using StudySimulation.BLL;
+using StudySimulation.BLL.Abstract;
 using StudySimulation.BLL.Interface;
 using System;
 using System.Collections.Generic;
@@ -149,8 +150,8 @@ namespace StudySimulation
         private int choiceActivity()
         {
             int count = 7;
-            return NumberCheck("\n -|Choise Activity| -\n" + " Lab 1; \n Credit 2; \n Examination 3; \n" +
-                " Lectures 4; \n ModulControlWork 5; \n Practice 6; \n TermPaper 7; \n",
+            return NumberCheck("\n-|Choise Activity| -\n" + "Lab 1; \nCredit 2; \nExamination 3; \n" +
+                "Lectures 4;\nModulControlWork 5; \nPractice 6; \nTermPaper 7; \n",
                 count + 1, 1);
         }
         private int ChoiceTeacher(int subject)
@@ -302,7 +303,7 @@ namespace StudySimulation
                 text += item.ToString().ToLower() + " : " + (int)item + "\n";
                 max = (int)item;
             }
-            return (EQUIPMENT)NumberCheck("\n -|Choise EQUIPMENT| -\n"+text,max+1);
+            return (EQUIPMENT)NumberCheck("\n-|Choise EQUIPMENT|-\n"+text,max+1);
 
         }
         private SUBACTIVITIES ChoiceSUBACTIVITIES()
@@ -314,7 +315,7 @@ namespace StudySimulation
                 text += item.ToString().ToLower() + " : " + (int)item + "\n";
                 max = (int)item;
             }
-            return (SUBACTIVITIES)NumberCheck("\n -|Choise SUBACTIVITIES| -\n" + text, max + 1);
+            return (SUBACTIVITIES)NumberCheck("\n-|Choise SUBACTIVITIES|-\n" + text, max + 1);
 
         }
         private ROOM ChoiceROOM()
@@ -326,23 +327,23 @@ namespace StudySimulation
                 text += item.ToString().ToLower() + " : " + (int)item + "\n";
                 max = (int)item;
             }
-            return (ROOM)NumberCheck("\n -|Choise ROOM| -\n" + text, max + 1);
+            return (ROOM)NumberCheck("\n-|Choise ROOM|-\n" + text, max + 1);
 
         }
-        
-        private void DisplayMessage(string message)
+       
+        public void Update(object sender, MessageEventArgs eventArgs)
         {
-            Console.WriteLine(message);
+            Console.WriteLine(eventArgs.text);
         }
 
-        public void Update(string text)
+        public void Update(object sender, EvaluationEventArgs eventArgs)
         {
-            Console.WriteLine(text);
+            Console.WriteLine(eventArgs.text);
         }
 
-        public void Update(string text, int state)
+        public void Update(object sender, SuccessFactorEventArgs eventArgs)
         {
-            Console.WriteLine(text + state.ToString());
+            Console.WriteLine(eventArgs.text+" "+eventArgs.successFactor);
         }
     }
 }
