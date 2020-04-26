@@ -44,10 +44,13 @@
     <Compile Include="Abstract\Subject.cs" />
     <Compile Include="Abstract\GroupRating.cs" />
     <Compile Include="EventManager.cs" />
-    <Compile Include="IEventService.cs" />
+    <Compile Include="Interface\IEventService.cs" />
     <Compile Include="InfoService.cs" />
-    <Compile Include="IObserver.cs" />
-    <Compile Include="ISubscribeSwitch.cs" />
+    <Compile Include="Interface\IInfoService.cs" />
+    <Compile Include="Interface\IObserver.cs" />
+    <Compile Include="Interface\IService.cs" />
+    <Compile Include="Interface\ISubscribeSwitch.cs" />
+    <Compile Include="Interface\IUniversity.cs" />
     <Compile Include="PersoneDTO.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

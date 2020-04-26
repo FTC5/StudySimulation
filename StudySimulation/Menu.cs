@@ -1,4 +1,5 @@
 ﻿using StudySimulation.BLL;
+using StudySimulation.BLL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +8,18 @@ using System.Threading.Tasks;
 
 namespace StudySimulation
 {
-    class Menu
+    class Menu:IObserver
     {
-        Service service;
-        InfoService infoService;
-        Settings settings;
+        IService service;
+        IInfoService infoService;
+        SettingsMenu settingsMenu;
         string choise;
 
-        public Menu(Service service, Settings settings,InfoService infoService)
+        public Menu(IService service, IInfoService infoService, IEventService eventService)
         {
             this.service = service;
-            this.settings = settings;
             this.infoService = infoService;
-            settings.EducationalFactorInfoSwitch(DisplayMessage);
-            settings.EducationalMesSwitch(DisplayMessage);
-            settings.StudentInfoSwitch(DisplayMessage);
+            settingsMenu = new SettingsMenu(this, eventService);
         }
 
         public void MainMenu()
@@ -62,7 +60,7 @@ namespace StudySimulation
                         Console.WriteLine(infoService.GetGroupsGrades(n));
                         break;
                     case "7":
-                        Settings();
+                        settingsMenu.SetSettings();
                         break;
                     case "8":
                         return;
@@ -331,52 +329,20 @@ namespace StudySimulation
             return (ROOM)NumberCheck("\n -|Choise ROOM| -\n" + text, max + 1);
 
         }
-        private void Settings()
-        {
-            void Message(string message,bool result)
-            {
-                if (result == false)
-                {
-                    Console.WriteLine("On "+ message);
-                }
-                else
-                {
-                    Console.WriteLine("Off " + message);
-                }
-            }
-            while(true)
-            {
-                Message("Educational factor: 1", settings.EducationalFactor);
-                Message("Educational message: 2", settings.EducationalMes);
-                Message("Student information: 3", settings.StudentInfo);
-                Console.WriteLine("All change : 4");
-                Console.WriteLine("Exit : other symbols");
-                choise = Console.ReadLine();
-                switch (choise)
-                {
-                    case "1":
-                        settings.EducationalFactorInfoSwitch(DisplayMessage);
-                        break;
-                    case "2":
-                        settings.EducationalMesSwitch(DisplayMessage);
-                        break;
-                    case "3":
-                        settings.StudentInfoSwitch(DisplayMessage);
-                        break;
-                    case "4":
-                        settings.EducationalFactorInfoSwitch(DisplayMessage);
-                        settings.EducationalMesSwitch(DisplayMessage);
-                        settings.StudentInfoSwitch(DisplayMessage);
-                        break;
-                    default:
-                        return;
-                }
-            }
-            
-        }
+        
         private void DisplayMessage(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public void Update(string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(string text, int state)
+        {
+            throw new NotImplementedException();
         }
     }
 }

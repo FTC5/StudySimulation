@@ -1,4 +1,5 @@
 ﻿using StudySimulation.BLL;
+using StudySimulation.BLL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,11 @@ namespace StudySimulation
     {
         static void Main(string[] args)
         {
-            University university = new University();
-            Service service = new Service(university);
-            InfoService infoService = new InfoService(university);
-            Settings settings = new Settings(university);
-            Menu menu = new Menu(service,settings,infoService);
+            IUniversity university = new University();
+            IService service = new Service(university);
+            IInfoService infoService = new InfoService(university);
+            IEventService eventService = new EventManager(university.GroupRating,university.Subjects);
+            Menu menu = new Menu(service,infoService, eventService);
             menu.MainMenu();
         }
         
