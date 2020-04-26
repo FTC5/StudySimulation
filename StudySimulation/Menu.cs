@@ -337,12 +337,12 @@ namespace StudySimulation
 
         public void Update(string text)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(text);
         }
 
         public void Update(string text, int state)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(text + state.ToString());
         }
     }
 }
