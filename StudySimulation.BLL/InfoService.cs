@@ -78,6 +78,7 @@ namespace StudySimulation.BLL
                     {
                         text += group.ToString() + " ";
                     }
+                    text += "\n";
                 }
             }
             return text;
