@@ -237,12 +237,12 @@ namespace StudySimulation.BLL
             SubGroup[] subGroups;
             List<Student> students;
             int n = 1;
-            int subGStudentCount = 13;
+            int subGStudentCount = 10;
             int count = group.Students.Count;
             if (count < subGStudentCount*2)
             {
                 subGroups = new SubGroup[n];
-                subGroups[0] = (SubGroup)group;
+                subGroups[0] = new SubGroup(group.Name, group.Course, group.Students, 0);
                 return subGroups;
             }
             n = count / 13;

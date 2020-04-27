@@ -28,6 +28,7 @@ namespace StudySimulation.BLL.Subjects
         public override int Lab(Group group, Equipment equipment, Room room, ISubActivities subActivities)
         {
             MessageEventArgs message = new MessageEventArgs();
+            SuccessFactorEventArgs factor = new SuccessFactorEventArgs();
             message.text = "Lab start : \n";
 
             if (room.Name != "Laboratory")
@@ -44,16 +45,16 @@ namespace StudySimulation.BLL.Subjects
             }
             if (subActivities.ToString() != "Perform experiment")
             {
-                SuccessFactorEventArgs factor = new SuccessFactorEventArgs();
-                successFactor += -3;
-                factor.text = subActivities.Action() + ".Student success factor: ";
-                factor.successFactor = successFactor;
-                CallFactorEvent(this, factor);
+                message.text += "Students do not conduct experiments. It is not possible to conduct physics";
+                CallMessageEvent(this, message);
+                return 0;
             }
             message.text += subActivities.Action() + "\n";
             successFactor += CheckEquipment(equipment);
             message.text += "Students study";
             CallMessageEvent(this, message);
+            CallFactorEvent(this, factor);
+            groupRating.SetGroupGrades(group, name);
             return successFactor;
         }
     }
